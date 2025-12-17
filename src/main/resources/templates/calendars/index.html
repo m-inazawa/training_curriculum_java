@@ -8,18 +8,15 @@
 </head>
 
 <body>
-  <div>
-    <form th:action="@{/calendars}" th:object="${planForm}" method="post" class="form">
-      <label for="date" class="label">日付を選択</label>
-      <input type="date" id="date" th:field="*{date}" class="date-select"/>
+  <form th:action="@{/calendars}" th:object="${planForm}" method="post" class="form">
+    <label for="date" class="label">日付を選択</label>
+    <input type="date" id="date" th:field="*{date}" class="date-select"/>
       
-      <label for="plan" class="label">予定を入力</label>
-      <input type="text" id="plan" th:field="*{plan}" class="text-input"/>
+    <label for="plan" class="label">予定を入力</label>
+    <input type="text" id="plan" th:field="*{plan}" class="text-input"/>
       
-      <button type="submit">保存</button>
-    </form>
-  </div>
-  <div>
+    <button type="submit">保存</button>
+  </form>
     <div class="calendar">
       <div th:each="day : ${weekDays}">
         <div class="item">
@@ -32,6 +29,5 @@
         </div>
       </div>
     </div>
-  </div>
 </body>
 </html>
