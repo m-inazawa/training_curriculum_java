@@ -17,15 +17,17 @@
       
     <button type="submit">保存</button>
   </form>
-  <div class="calendar">
-    <div class="item" th:each="day : ${weekDays}">
-      <div class="date">
-        <span th:text="'/'"></span>
+    <div class="calendar">
+      <div th:each="day : ${weekDays}">
+        <div class="item">
+          <div class="date">
+            <span th:text="'/'"></span>
+          </div>
+          <ul class="content">
+            <li th:each="plan : ${day.plans}" class="plan-list">・<span th:text="${plan}"></span></li>
+          </ul>
+        </div>
       </div>
-      <ul class="content">
-        <li th:each="plan : ${day.plans}" class="plan-list">・<span th:text="${plan}"></span></li>
-      </ul>
     </div>
-  </div>
 </body>
 </html>
