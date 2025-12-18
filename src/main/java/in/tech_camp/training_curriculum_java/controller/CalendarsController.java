@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import in.tech_camp.training_curriculum_java.entity.PlanEntity;
 import in.tech_camp.training_curriculum_java.form.PlanForm;
+import in.tech_camp.training_curriculum_java.repository.PlanFormRepository;
 import in.tech_camp.training_curriculum_java.repository.PlanRepository;
 import lombok.AllArgsConstructor;
 
@@ -23,6 +24,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CalendarsController {
   private final PlanRepository planRepository;
+  private final PlanFormRepository planFormRepository;
 
   // 1週間のカレンダーと予定が表示されるページ
   @GetMapping("/")
@@ -30,6 +32,9 @@ public class CalendarsController {
     model.addAttribute("planForm", new PlanForm());
     List<Map<String, Object>> weekDays = get_week();
     model.addAttribute("weekDays", weekDays);
+    List<PlanEntity> plans = planFormRepository.findAll();
+    // model.addAttribute("plans", planForm.getDate);
+    model.addAttribute("plans", plans);
     return "calendars/index";
   }
 
@@ -38,8 +43,8 @@ public class CalendarsController {
   public String create(@ModelAttribute("planForm") @Validated PlanForm planForm, BindingResult result) {
     if (!result.hasErrors()) {
       PlanEntity newPlan = new PlanEntity();
-      System.out.println("記述内容：" + planForm.getDate());
-      System.out.println("記述内容：" + planForm.getPlan());
+      System.out.println("記述内容 getDate：" + planForm.getDate());
+      System.out.println("記述内容 getPlan：" + planForm.getPlan());
       newPlan.setDate(planForm.getDate());
       newPlan.setPlan(planForm.getPlan());
       planRepository.insert(newPlan);
