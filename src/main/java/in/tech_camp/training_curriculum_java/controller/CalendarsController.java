@@ -14,16 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import in.tech_camp.training_curriculum_java.repository.PlanRepository;
-import in.tech_camp.training_curriculum_java.form.PlanForm;
 import in.tech_camp.training_curriculum_java.entity.PlanEntity;
-
+import in.tech_camp.training_curriculum_java.form.PlanForm;
+import in.tech_camp.training_curriculum_java.repository.PlanRepository;
 import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor
 public class CalendarsController {
-
   private final PlanRepository planRepository;
 
   // 1週間のカレンダーと予定が表示されるページ
@@ -40,11 +38,13 @@ public class CalendarsController {
   public String create(@ModelAttribute("planForm") @Validated PlanForm planForm, BindingResult result) {
     if (!result.hasErrors()) {
       PlanEntity newPlan = new PlanEntity();
+      System.out.println("記述内容：" + planForm.getDate());
+      System.out.println("記述内容：" + planForm.getPlan());
       newPlan.setDate(planForm.getDate());
       newPlan.setPlan(planForm.getPlan());
       planRepository.insert(newPlan);
     }
-    return "redirect:/calendars";
+    return "redirect:/";
   }
 
   private List<Map<String, Object>> get_week() {
@@ -60,9 +60,9 @@ public class CalendarsController {
       LocalDate currentDate = todaysDate.plusDays(x);
 
       List<String> todayPlans = new ArrayList<>();
-      for (PlanEntity plan : plans) {
-          if (plan.getDate().equals(currentDate)) {
-              todayPlans.add(plan.getPlan());
+      for (PlanEntity Entity : plans) {
+          if (Entity.getDate().equals(currentDate)) {
+              todayPlans.add(Entity.getPlan());
           }
       }
 

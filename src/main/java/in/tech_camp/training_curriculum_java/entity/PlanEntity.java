@@ -9,4 +9,8 @@ public class PlanEntity {
   private Long id;
   private String plan;
   private LocalDate date;
+
+    // public Object getDate() {
+    //     throw new UnsupportedOperationException("Not supported yet.");
+    // }
 }
